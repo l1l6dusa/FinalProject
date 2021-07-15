@@ -7,7 +7,7 @@ using UnityEngine.Events;
 public class InteractableItem : MonoBehaviour
 {
     public UnityEvent CollisionWithPlayer;
-    
+    public bool DestroyObject = false;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -17,6 +17,10 @@ public class InteractableItem : MonoBehaviour
             if (CollisionWithPlayer != null)
             {
                 CollisionWithPlayer.Invoke();
+                if (DestroyObject)
+                {
+                    Destroy(this.gameObject);
+                }
             }
             else
             {

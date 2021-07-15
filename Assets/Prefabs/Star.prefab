@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 4348621724370816971}
   - component: {fileID: 4382844693768543094}
   - component: {fileID: 8956028111275446348}
+  - component: {fileID: 569908187}
   m_Layer: 0
   m_Name: Star
   m_TagString: Untagged
@@ -111,3 +112,23 @@ MonoBehaviour:
   CollisionWithPlayer:
     m_PersistentCalls:
       m_Calls: []
+  DestroyObject: 1
+--- !u!95 &569908187
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4348621724370816970}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 60045ff0b41e55b46ab5a5588d6eb27a, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
