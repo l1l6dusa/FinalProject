@@ -1,23 +1,21 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+
 [RequireComponent(typeof(BoxCollider))]
 public class InteractableItem : MonoBehaviour
 {
+    [SerializeField] private bool _destroyItem;
+    
     public UnityEvent CollisionWithPlayer;
-    public bool DestroyObject = false;
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.GetComponent<PlayerNavigation>())
-            
         {
             if (CollisionWithPlayer != null)
             {
                 CollisionWithPlayer.Invoke();
-                if (DestroyObject)
+                if (_destroyItem)
                 {
                     Destroy(this.gameObject);
                 }

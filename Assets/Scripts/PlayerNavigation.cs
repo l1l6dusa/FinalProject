@@ -1,12 +1,6 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.ComponentModel;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.InputSystem;
-using UnityEngine.UI;
 
 [RequireComponent(typeof(RbMovement))]
 public class PlayerNavigation : MonoBehaviour
@@ -27,6 +21,8 @@ public class PlayerNavigation : MonoBehaviour
     private InputControls _controls;
     private Vector2 _position;
     private float _offsetMultiplier = 0.1f;
+
+    
 
     private void Awake()
     {
@@ -58,12 +54,9 @@ public class PlayerNavigation : MonoBehaviour
 
     private void ShootPlayer()
     {
-        Debug.Log("SHOOT");
         if (!EventSystem.current.IsPointerOverGameObject())
         {
             var ray = new Ray(transform.position + new Vector3(0, 0.05f, 0), _pointer.transform.forward);
-            Debug.Log("SHOOT1");
-            Debug.Log(Physics.Raycast(ray, out var hitInfo1, _shootDistance, _wallsLayer));
             if (Physics.Raycast(ray, out var hitInfo, _shootDistance, _wallsLayer))
             {
                 var direction = transform.position - hitInfo.point;
@@ -101,13 +94,9 @@ public class PlayerNavigation : MonoBehaviour
 
     public IEnumerator RotateRoutine(float bonds, Quaternion anchorRotation)
     {
-       
         var yrotation = anchorRotation.eulerAngles.y + 360;
-        Debug.Log("yrotation " + (yrotation - 360));
         var minBond = yrotation - bonds;
-        Debug.Log("minBond " + (minBond - 360));
         var maxBond = yrotation + bonds;
-        Debug.Log("maxBond " + (maxBond - 360));
         WaitForFixedUpdate fixedUpdate = new WaitForFixedUpdate();
         while (true)
         {

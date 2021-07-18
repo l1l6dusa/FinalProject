@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
@@ -9,7 +6,7 @@ using UnityEngine.UI;
 public class UINavigation : MonoBehaviour
 {
     //Create a new enum to switch different menus.
-    public enum PanelType
+    private enum PanelType
     {
         StartUp,
         PauseMenu,
@@ -31,6 +28,7 @@ public class UINavigation : MonoBehaviour
     [SerializeField] private InteractableItem[] _stars;
     [SerializeField] private InteractableItem[] _enemies;
     [SerializeField] private InteractableItem _winArea;
+    [SerializeField] private ObserveRendererInSight _camera;
     
     public UnityEvent GameStateChanged;
     public UnityEvent RestartButtonClicked;
@@ -61,6 +59,7 @@ public class UINavigation : MonoBehaviour
         AddListenersToStars(IncrementSliderValue);
         AddListenersToEnemies(ActivateLoseMenu);
         _winArea.CollisionWithPlayer.AddListener(ActivateWinMenu);
+        _camera.onBecameInvisible.AddListener(ActivateLoseMenu);
     }
 
     private void OnDisable()
@@ -73,6 +72,7 @@ public class UINavigation : MonoBehaviour
         RemoveListenersFromStars(IncrementSliderValue);
         RemoveListenersFromEnemies(ActivateLoseMenu);
         _winArea.CollisionWithPlayer.RemoveListener(ActivateWinMenu);
+        _camera.onBecameInvisible.RemoveListener(ActivateLoseMenu);
     }
 
     private void SetPanelActive(PanelType type)
@@ -158,7 +158,6 @@ public class UINavigation : MonoBehaviour
     {
         _isInGameMenuOpened = !_isInGameMenuOpened;
         SetPanelActive(_isInGameMenuOpened ? PanelType.PauseMenu : PanelType.InGameUI);
-        Debug.Log(Time.deltaTime);
         GameStateChanged?.Invoke();
     }
 

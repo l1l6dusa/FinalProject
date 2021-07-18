@@ -7,12 +7,13 @@ public class RbMovement : MonoBehaviour
     [SerializeField] private float _speed;
     [SerializeField] private float _distanceToTarget;
     [SerializeField] private GameObject _player;
+    
     private Rigidbody _rigidbody;
     private Vector3 _point;
     private Vector3 _forwardRotation;
+    
     public UnityEvent OnMovementStart;
     
-
     private void Awake()
     {
         _rigidbody = GetComponent<Rigidbody>();
@@ -25,18 +26,19 @@ public class RbMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        
         if(Vector3.Distance(transform.position, _point) > _distanceToTarget)
         {
             var tempPos = (_point - transform.position) * (Time.deltaTime * _speed);
             _rigidbody.MovePosition(transform.position+tempPos);
         }
-        else {
+        else 
+        {
             _player.transform.rotation = Quaternion.LookRotation(_forwardRotation, Vector3.up);
         }
     }
 
-    public void SetPositionAndRotation(Vector3 point, Quaternion rotation, Vector3 forwardRotation) {
+    public void SetPositionAndRotation(Vector3 point, Quaternion rotation, Vector3 forwardRotation) 
+    {
         _point = point;
         _forwardRotation = forwardRotation;
         OnMovementStart?.Invoke();

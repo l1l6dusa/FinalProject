@@ -1,5 +1,3 @@
-// GENERATED AUTOMATICALLY FROM 'Assets/Scripts/InputControls.inputactions'
-
 using System;
 using System.Collections;
 using System.Collections.Generic;

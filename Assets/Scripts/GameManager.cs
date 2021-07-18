@@ -8,10 +8,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private UINavigation _ui;
     public UnityEvent SceneReload;
     private bool _gameActive;
-
     
-
-    // Start is called before the first frame update
     void Start()
     {
         _gameActive = false;

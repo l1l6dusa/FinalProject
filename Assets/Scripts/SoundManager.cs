@@ -1,10 +1,7 @@
-using System;
 using UnityEngine;
-using UnityEngine.Audio;
 using UnityEngine.Events;
 [RequireComponent(typeof(AudioSource))]
 public class SoundManager : MonoBehaviour {
-    private AudioSource _audioSource;
     [SerializeField] private AudioClip _onMovementSoundClip;
     [SerializeField] private AudioClip _onWinSoundClip;
     [SerializeField] private AudioClip _onLoseSoundClip;
@@ -14,6 +11,8 @@ public class SoundManager : MonoBehaviour {
     [SerializeField] private InteractableItem[] _boxes;
     [SerializeField] private InteractableItem _finishLine;
     [SerializeField] private RbMovement _player;
+    
+    private AudioSource _audioSource;
     private void Start()
     {
         _audioSource = GetComponent<AudioSource>();
@@ -25,20 +24,19 @@ public class SoundManager : MonoBehaviour {
 
     private void PlayMovementSound()
     {
-        
-        _audioSource.PlayOneShot(_onMovementSoundClip);
+        _audioSource.PlayOneShot(_onMovementSoundClip, _audioSource.volume);
     }
     private void PlayWinSound()
     {
-        _audioSource.PlayOneShot(_onWinSoundClip);
+        _audioSource.PlayOneShot(_onWinSoundClip, _audioSource.volume);
     }
     private void PlayLoseSound()
     {
-        _audioSource.PlayOneShot(_onLoseSoundClip);
+        _audioSource.PlayOneShot(_onLoseSoundClip, _audioSource.volume);
     }
     private void PlayStartAcquisitionSound()
     {
-        _audioSource.PlayOneShot(_onStarAcquisition);
+        _audioSource.PlayOneShot(_onStarAcquisition, _audioSource.volume);
     }
 
     private void AddListeners(InteractableItem[] items, UnityAction action)

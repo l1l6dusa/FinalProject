@@ -1,13 +1,12 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+
 [RequireComponent(typeof(BoxCollider))]
 [RequireComponent(typeof(Rigidbody))]
 public class InteractableMovement : MonoBehaviour
 {
     [SerializeField] private float _speed;
     [SerializeField] private GameObject[] _anchors;
+    
     private int _index;
     private bool _isAsc;
     private Rigidbody _rb;
@@ -19,22 +18,14 @@ public class InteractableMovement : MonoBehaviour
         _rb = GetComponent<Rigidbody>();
         
     }
-
+    
     private void Start()
     {
         _distanceThreshold = 0.25f;
         _index = 0;
         _direction = (_anchors[_index].transform.position - transform.position).normalized;
     }
-
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-       
-    }
-
+    
     private void FixedUpdate()
     {
         MoveToAnchor();
@@ -45,8 +36,7 @@ public class InteractableMovement : MonoBehaviour
     {
         if (Vector3.Distance(transform.position, _anchors[_index].transform.position)<_distanceThreshold)
         {
-            
-            if (_index == 0)
+            if(_index == 0)
             {
                 _isAsc = true;
             }
@@ -62,7 +52,6 @@ public class InteractableMovement : MonoBehaviour
             {
                 _index--;
             }
-
             _direction = (_anchors[_index].transform.position - transform.position).normalized;
         }
     }

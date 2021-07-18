@@ -1,8 +1,5 @@
-
-using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.InputSystem;
 
 public class Pointer : MonoBehaviour
 {
@@ -20,14 +17,14 @@ public class Pointer : MonoBehaviour
     
     public void ShowPointer()
     {
-        if (!EventSystem.current.IsPointerOverGameObject()){
-            
+        if (!EventSystem.current.IsPointerOverGameObject())
+        {    
             foreach (var renderer in arrowsMeshes)
             {
                 renderer.enabled = !renderer.enabled;
             }
         }
-}
+    }
 
     public void HidePointer()
     {
