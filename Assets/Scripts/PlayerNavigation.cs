@@ -68,10 +68,6 @@ public class PlayerNavigation : MonoBehaviour
                     _rotationAnchor = Quaternion.LookRotation(hitInfo.normal, Vector3.up);
                     _playerMovement.SetPositionAndRotation(hitInfo.point + offset, _rotationAnchor, hitInfo.normal);
                 }
-                var sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-                sphere.transform.position = hitInfo.point + offset;
-                sphere.GetComponent<Collider>().enabled = false;
-                sphere.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
             }
         }
     }
