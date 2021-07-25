@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 { 
     
-    [SerializeField] private UINavigation _ui;
+    [SerializeField] private UIManager _ui;
     public UnityEvent SceneReload;
     private bool _gameActive;
     

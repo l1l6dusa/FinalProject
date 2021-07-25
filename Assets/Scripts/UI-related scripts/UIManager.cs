@@ -3,28 +3,14 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
-public class UINavigation : MonoBehaviour
+[RequireComponent(typeof(UIPanel))]
+public class UIManager : MonoBehaviour
 {
-    //Create a new enum to switch different menus.
-    private enum PanelType
-    {
-        StartUp,
-        PauseMenu,
-        WinMenu,
-        LoseMenu,
-        InGameUI
-    }
-     
     [SerializeField] private Button _playButton;
     [SerializeField] private Button _exitButton;
     [SerializeField] private Button _restartButton;
     [SerializeField] private Button _continueButton;
     [SerializeField] private Button _settingsButton;
-    [SerializeField] private GameObject _panel;
-    [SerializeField] private GameObject _winTag;
-    [SerializeField] private GameObject _loseTag;
-    [SerializeField] private Slider _slider;
-    [SerializeField] private TMP_Text _sliderText;
     [SerializeField] private InteractableItem[] _stars;
     [SerializeField] private InteractableItem[] _enemies;
     [SerializeField] private InteractableItem _winArea;
@@ -33,20 +19,21 @@ public class UINavigation : MonoBehaviour
     public UnityEvent GameStateChanged;
     public UnityEvent RestartButtonClicked;
     public UnityEvent ExitButtonClicked;
-    
 
+    private UIPanel _panel;
     private int _starValue;
     private int _maxStarValue;
     private bool _isInGameMenuOpened;
 
     private void Start()
     {
+        _panel = GetComponent<UIPanel>();
         _starValue = 0;
         _maxStarValue = _stars.Length;
         _isInGameMenuOpened = false;
-        SetPanelActive(PanelType.StartUp);
-        _slider.value = 0f;
-        _sliderText.text = $"{_starValue}/{_maxStarValue}";
+        _panel.SetPanelActive(PanelType.StartUp);
+        _panel.Slider.value = _starValue;
+        _panel.SliderText.text = $"{_starValue}/{_maxStarValue}";
     }
 
     private void OnEnable()
@@ -75,7 +62,7 @@ public class UINavigation : MonoBehaviour
         _camera.onBecameInvisible.RemoveListener(ActivateLoseMenu);
     }
 
-    private void SetPanelActive(PanelType type)
+    /*private void SetPanelActive(PanelType type)
     {
         
         switch (type)
@@ -86,7 +73,7 @@ public class UINavigation : MonoBehaviour
                 _exitButton.gameObject.SetActive(true);
                 _continueButton.gameObject.SetActive(false);
                 _restartButton.gameObject.SetActive(false);
-                _slider.gameObject.SetActive(false);
+                .gameObject.SetActive(false);
                 _winTag.SetActive(false);
                 _loseTag.SetActive(false);
                 _settingsButton.gameObject.SetActive(false);
@@ -98,7 +85,7 @@ public class UINavigation : MonoBehaviour
                 _continueButton.gameObject.SetActive(true);
                 _restartButton.gameObject.SetActive(true);
                 _settingsButton.gameObject.SetActive(false);
-                _slider.gameObject.SetActive(false);
+                .gameObject.SetActive(false);
                 _winTag.SetActive(false);
                 _loseTag.SetActive(false);
                 break;
@@ -111,7 +98,7 @@ public class UINavigation : MonoBehaviour
                 _settingsButton.gameObject.SetActive(false);
                 _winTag.SetActive(true);
                 _loseTag.SetActive(false);
-                _slider.gameObject.SetActive(true);
+                .gameObject.SetActive(true);
                 break;
             case PanelType.LoseMenu:
                 _panel.SetActive(true);
@@ -121,7 +108,7 @@ public class UINavigation : MonoBehaviour
                 _restartButton.gameObject.SetActive(true);
                 _loseTag.SetActive(true);
                 _winTag.SetActive(false);
-                _slider.gameObject.SetActive(true);
+                .gameObject.SetActive(true);
                 _settingsButton.gameObject.SetActive(false);
                 break;
             case PanelType.InGameUI:
@@ -132,16 +119,16 @@ public class UINavigation : MonoBehaviour
                 _restartButton.gameObject.SetActive(false);
                 _loseTag.SetActive(false);
                 _winTag.SetActive(false);
-                _slider.gameObject.SetActive(true);
+                .gameObject.SetActive(true);
                 _settingsButton.gameObject.SetActive(true);
                 break;
         }
-    }
+    }*/
     
     private void OnPlayButtonClicked()
     {
         GameStateChanged?.Invoke();
-        SetPanelActive(PanelType.InGameUI);
+        _panel.SetPanelActive(PanelType.InGameUI);
     }
 
     private void OnExitButtonClicked()
@@ -157,15 +144,15 @@ public class UINavigation : MonoBehaviour
     private void OnSettingsContinueButtonClicked()
     {
         _isInGameMenuOpened = !_isInGameMenuOpened;
-        SetPanelActive(_isInGameMenuOpened ? PanelType.PauseMenu : PanelType.InGameUI);
+        _panel.SetPanelActive(_isInGameMenuOpened ? PanelType.PauseMenu : PanelType.InGameUI);
         GameStateChanged?.Invoke();
     }
 
     public void IncrementSliderValue()
     {
         _starValue++;
-        _sliderText.text = $"{_starValue}/{_maxStarValue}";
-        _slider.value = (float)_starValue / _maxStarValue;
+        _panel.SliderText.text = $"{_starValue}/{_maxStarValue}";
+        _panel.Slider.value = (float)_starValue / _maxStarValue;
     }
 
     private void AddListenersToStars(UnityAction action)
@@ -186,7 +173,7 @@ public class UINavigation : MonoBehaviour
 
     private void ActivateLoseMenu()
     {
-        SetPanelActive(PanelType.LoseMenu);
+        _panel.SetPanelActive(PanelType.LoseMenu);
         GameStateChanged?.Invoke();
     }
     
@@ -208,7 +195,7 @@ public class UINavigation : MonoBehaviour
 
     private void ActivateWinMenu()
     {
-        SetPanelActive(PanelType.WinMenu);
+        _panel.SetPanelActive(PanelType.WinMenu);
         GameStateChanged.Invoke();
     }
 }

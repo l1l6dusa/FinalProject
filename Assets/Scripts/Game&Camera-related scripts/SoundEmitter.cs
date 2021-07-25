@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.Events;
 [RequireComponent(typeof(AudioSource))]
-public class SoundManager : MonoBehaviour {
+public class SoundEmitter : MonoBehaviour {
     [SerializeField] private AudioClip _onMovementSoundClip;
     [SerializeField] private AudioClip _onWinSoundClip;
     [SerializeField] private AudioClip _onLoseSoundClip;
@@ -10,7 +10,7 @@ public class SoundManager : MonoBehaviour {
     [SerializeField] private InteractableItem[] _stars;
     [SerializeField] private InteractableItem[] _boxes;
     [SerializeField] private InteractableItem _finishLine;
-    [SerializeField] private RbMovement _player;
+    [SerializeField] private PlayerMovement _player;
     
     private AudioSource _audioSource;
     private void Start()

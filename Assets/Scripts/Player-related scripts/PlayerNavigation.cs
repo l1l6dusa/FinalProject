@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-[RequireComponent(typeof(RbMovement))]
+[RequireComponent(typeof(PlayerMovement))]
 public class PlayerNavigation : MonoBehaviour
 {
     [SerializeField] private LayerMask _wallsLayer;
@@ -17,7 +17,7 @@ public class PlayerNavigation : MonoBehaviour
     private float _zPointer;
     private Coroutine _arrowRoutine;
     private Quaternion _rotationAnchor;
-    private RbMovement _playerMovement;
+    private PlayerMovement _playerMovement;
     private InputControls _controls;
     private Vector2 _position;
     private float _offsetMultiplier = 0.1f;
@@ -38,7 +38,7 @@ public class PlayerNavigation : MonoBehaviour
         _pointerTransform = _pointer.transform;
         _xPointer = _pointerTransform.localPosition.x;
         _zPointer = _pointerTransform.localPosition.z;
-        _playerMovement = GetComponent<RbMovement>();
+        _playerMovement = GetComponent<PlayerMovement>();
         _rotationAnchor = Quaternion.LookRotation(transform.forward);
     }
     
