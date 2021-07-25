@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour
     public UnityEvent SceneReload;
     private bool _gameActive;
     
-    void Start()
+    private void Start()
     {
         _gameActive = false;
         Time.timeScale = 0;

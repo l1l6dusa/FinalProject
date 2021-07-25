@@ -16,13 +16,12 @@ public class CameraFollow : MonoBehaviour
     private float xDiff;
     private float zDiff;
     
-
-    void Start()
+    private void Start()
     {
         _zOffset =  followedObject.transform.position.z - transform.position.z;
     }
     
-    void Update() 
+    private void Update() 
     {
         if(_cameraBackMovement==null)
             _cameraBackMovement = StartCoroutine(CameraBackMovement());
@@ -30,16 +29,8 @@ public class CameraFollow : MonoBehaviour
         xDiff = Mathf.Abs(followedObject.transform.position.x-transform.position.x);
         if (zDiff > _maxZdiff)
         {
-            /*if(_cameraBackMovement!=null)
-                StopCoroutine(_cameraBackMovement);*/
-                //_cameraBackMovement = null;
             var translationVector = new Vector3(0, 0, followedObject.transform.position.z + _zOffset) * (_speed * Time.deltaTime);
             transform.position +=  translationVector;
-        }
-        else
-        {
-            /*if(_cameraBackMovement==null)
-                _cameraBackMovement = StartCoroutine(CameraBackMovement());*/
         }
         
         if (xDiff > _maxXdiff)
@@ -57,7 +48,7 @@ public class CameraFollow : MonoBehaviour
         }
     }
 
-    IEnumerator MoveToFollowedObject(float targetXPosition)
+    private IEnumerator MoveToFollowedObject(float targetXPosition)
     {
         if (xDiff > 0)
         {
@@ -66,7 +57,7 @@ public class CameraFollow : MonoBehaviour
         }
     }
 
-    IEnumerator CameraBackMovement()
+    private IEnumerator CameraBackMovement()
     {
         yield return new WaitForSeconds(_timeOffset);
         while (true)
