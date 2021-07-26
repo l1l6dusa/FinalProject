@@ -61,69 +61,6 @@ public class UIManager : MonoBehaviour
         _winArea.CollisionWithPlayer.RemoveListener(ActivateWinMenu);
         _camera.onBecameInvisible.RemoveListener(ActivateLoseMenu);
     }
-
-    /*private void SetPanelActive(PanelType type)
-    {
-        
-        switch (type)
-        {
-            case PanelType.StartUp:
-                _panel.SetActive(true);
-                _playButton.gameObject.SetActive(true);
-                _exitButton.gameObject.SetActive(true);
-                _continueButton.gameObject.SetActive(false);
-                _restartButton.gameObject.SetActive(false);
-                .gameObject.SetActive(false);
-                _winTag.SetActive(false);
-                _loseTag.SetActive(false);
-                _settingsButton.gameObject.SetActive(false);
-                break;
-            case PanelType.PauseMenu:
-                _panel.SetActive(true);
-                _playButton.gameObject.SetActive(false);
-                _exitButton.gameObject.SetActive(true);
-                _continueButton.gameObject.SetActive(true);
-                _restartButton.gameObject.SetActive(true);
-                _settingsButton.gameObject.SetActive(false);
-                .gameObject.SetActive(false);
-                _winTag.SetActive(false);
-                _loseTag.SetActive(false);
-                break;
-            case PanelType.WinMenu:
-                _panel.SetActive(true);
-                _playButton.gameObject.SetActive(false);
-                _exitButton.gameObject.SetActive(true);
-                _continueButton.gameObject.SetActive(false);
-                _restartButton.gameObject.SetActive(true);
-                _settingsButton.gameObject.SetActive(false);
-                _winTag.SetActive(true);
-                _loseTag.SetActive(false);
-                .gameObject.SetActive(true);
-                break;
-            case PanelType.LoseMenu:
-                _panel.SetActive(true);
-                _playButton.gameObject.SetActive(false);
-                _exitButton.gameObject.SetActive(true);
-                _continueButton.gameObject.SetActive(false);
-                _restartButton.gameObject.SetActive(true);
-                _loseTag.SetActive(true);
-                _winTag.SetActive(false);
-                .gameObject.SetActive(true);
-                _settingsButton.gameObject.SetActive(false);
-                break;
-            case PanelType.InGameUI:
-                _panel.SetActive(false);
-                _playButton.gameObject.SetActive(false);
-                _exitButton.gameObject.SetActive(false);
-                _continueButton.gameObject.SetActive(false);
-                _restartButton.gameObject.SetActive(false);
-                _loseTag.SetActive(false);
-                _winTag.SetActive(false);
-                .gameObject.SetActive(true);
-                _settingsButton.gameObject.SetActive(true);
-                break;
-        }
-    }*/
     
     private void OnPlayButtonClicked()
     {
