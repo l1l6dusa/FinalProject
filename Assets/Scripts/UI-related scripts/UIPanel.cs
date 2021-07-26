@@ -1,12 +1,13 @@
+using System;
+using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class UIPanel : MonoBehaviour
 {
-    public Slider Slider {
-        get { return _slider; }
-    }
+    public Slider Slider => _slider;
+    public TMP_Text SliderText => _sliderText;
 
     [SerializeField] private GameObject _panel;
     [SerializeField] private GameObject _playButton;
@@ -18,13 +19,14 @@ public class UIPanel : MonoBehaviour
     [SerializeField] private GameObject _loseTag;
     [SerializeField] private GameObject _settingsButton;
     [SerializeField] private TMP_Text _sliderText;
-    public TMP_Text SliderText
-    {
-        get { return _sliderText; }
-    }
-
+    [SerializeField]private CanvasGroup _canvasGroup;
+    [SerializeField] private float alphaPerFrame;
+    
+    private WaitForEndOfFrame _waitForEndOfFrame;
+    
     public void SetPanelActive(PanelType type)
     {
+        _canvasGroup.alpha = 0;
         switch (type)
         {
             case PanelType.StartUp:
@@ -83,19 +85,22 @@ public class UIPanel : MonoBehaviour
                 _settingsButton.SetActive(true);
                 break;
         }
-    }
-    
-    
-    
-    // Start is called before the first frame update
-    void Start()
-    {
-        
+
+        StartCoroutine(FadeOutEnumerator());
     }
 
-    // Update is called once per frame
-    void Update()
+    private IEnumerator FadeOutEnumerator()
     {
-        
+        while (_canvasGroup.alpha < 1)
+        {
+            _canvasGroup.alpha += alphaPerFrame;
+            yield return _waitForEndOfFrame;
+        }
+    }
+
+    private void Start()
+    {
+        _canvasGroup.GetComponent<CanvasGroup>();
+        _waitForEndOfFrame = new WaitForEndOfFrame();
     }
 }
