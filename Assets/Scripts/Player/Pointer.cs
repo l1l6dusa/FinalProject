@@ -72,7 +72,6 @@ public class Pointer : MonoBehaviour
         
             while (_arrowMaterial.color.a < 1f)
             {
-                Debug.Log("increasing");
                 var alpha = _arrowMaterial.color.a + (Time.deltaTime / _fadeInOutTime); 
                 _arrowMaterial.color = new Color(_arrowColor.r, _arrowColor.g, _arrowColor.b, alpha);
                 yield return _waitForNextFrame;

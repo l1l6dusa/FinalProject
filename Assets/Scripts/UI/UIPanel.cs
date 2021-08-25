@@ -96,9 +96,7 @@ public class UIPanel : MonoBehaviour
                 _settingsButton.SetActive(true);
                 break;
         }
-
         _fadeInCoroutine = StartCoroutine(FadeInEnumerator());
-        Debug.Log("Test");
     }
 
     private IEnumerator FadeInEnumerator()
