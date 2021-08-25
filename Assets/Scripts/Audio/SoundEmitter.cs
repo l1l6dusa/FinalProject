@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.Events;
 [RequireComponent(typeof(AudioSource))]
 public class SoundEmitter : MonoBehaviour {
+    
     [SerializeField] private AudioClip _onMovementSoundClip;
     [SerializeField] private AudioClip _onWinSoundClip;
     [SerializeField] private AudioClip _onLoseSoundClip;
@@ -16,8 +17,8 @@ public class SoundEmitter : MonoBehaviour {
     private void Start()
     {
         _audioSource = GetComponent<AudioSource>();
-        _finishLine.CollisionWithPlayer.AddListener(PlayWinSound);
-        _player.OnMovementStart.AddListener(PlayMovementSound);
+        _finishLine.CollidedWithPlayer.AddListener(PlayWinSound);
+        _player.MovementStarted.AddListener(PlayMovementSound);
         AddListeners(_stars, PlayStartAcquisitionSound);
         AddListeners(_boxes, PlayLoseSound);
     }
@@ -43,7 +44,7 @@ public class SoundEmitter : MonoBehaviour {
     {
         foreach (var item in items)
         {
-            item.CollisionWithPlayer.AddListener(action);
+            item.CollidedWithPlayer.AddListener(action);
         }
     }
 }

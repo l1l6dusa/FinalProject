@@ -20,12 +20,23 @@ public class UIPanel : MonoBehaviour
     [SerializeField] private GameObject _settingsButton;
     [SerializeField] private TMP_Text _sliderText;
     [SerializeField]private CanvasGroup _canvasGroup;
-    [SerializeField] private float alphaPerFrame;
+    [SerializeField] private float _alphaPerFrame;
+    private Coroutine _fadeInCoroutine;
     
     private WaitForEndOfFrame _waitForEndOfFrame;
     
+    private void Start()
+    {
+        _canvasGroup.GetComponent<CanvasGroup>();
+        _waitForEndOfFrame = new WaitForEndOfFrame();
+    }
+    
     public void SetPanelActive(PanelType type)
     {
+        if(_fadeInCoroutine != null)
+        {
+            StopCoroutine(_fadeInCoroutine);
+        }
         _canvasGroup.alpha = 0;
         switch (type)
         {
@@ -86,21 +97,18 @@ public class UIPanel : MonoBehaviour
                 break;
         }
 
-        StartCoroutine(FadeOutEnumerator());
+        _fadeInCoroutine = StartCoroutine(FadeInEnumerator());
+        Debug.Log("Test");
     }
 
-    private IEnumerator FadeOutEnumerator()
+    private IEnumerator FadeInEnumerator()
     {
-        while (_canvasGroup.alpha < 1)
+        while (_canvasGroup.alpha < 1f)
         {
-            _canvasGroup.alpha += alphaPerFrame;
+            _canvasGroup.alpha += _alphaPerFrame;
             yield return _waitForEndOfFrame;
         }
     }
 
-    private void Start()
-    {
-        _canvasGroup.GetComponent<CanvasGroup>();
-        _waitForEndOfFrame = new WaitForEndOfFrame();
-    }
+    
 }

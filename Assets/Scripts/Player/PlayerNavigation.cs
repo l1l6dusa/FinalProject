@@ -21,9 +21,7 @@ public class PlayerNavigation : MonoBehaviour
     private InputControls _controls;
     private Vector2 _position;
     private float _offsetMultiplier = 0.1f;
-
     
-
     private void Awake()
     {
         _controls = new InputControls();

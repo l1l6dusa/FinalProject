@@ -4,17 +4,17 @@ using UnityEngine.Events;
 [RequireComponent(typeof(BoxCollider))]
 public class InteractableItem : MonoBehaviour
 {
-    [SerializeField] private bool _destroyItem;
+    public UnityEvent CollidedWithPlayer;
     
-    public UnityEvent CollisionWithPlayer;
+    [SerializeField] private bool _destroyItem;
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.GetComponent<PlayerNavigation>())
         {
-            if (CollisionWithPlayer != null)
+            if (CollidedWithPlayer != null)
             {
-                CollisionWithPlayer.Invoke();
+                CollidedWithPlayer.Invoke();
                 if (_destroyItem)
                 {
                     Destroy(this.gameObject);

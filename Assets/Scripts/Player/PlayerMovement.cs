@@ -4,6 +4,8 @@ using UnityEngine.Events;
 [RequireComponent(typeof(Rigidbody))]
 public class PlayerMovement : MonoBehaviour
 {
+    public UnityEvent MovementStarted;
+    
     [SerializeField] private float _speed;
     [SerializeField] private float _distanceToTarget;
     [SerializeField] private GameObject _player;
@@ -11,8 +13,6 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody _rigidbody;
     private Vector3 _point;
     private Vector3 _forwardRotation;
-    
-    public UnityEvent OnMovementStart;
     
     private void Awake()
     {
@@ -41,6 +41,6 @@ public class PlayerMovement : MonoBehaviour
     {
         _point = point;
         _forwardRotation = forwardRotation;
-        OnMovementStart?.Invoke();
+        MovementStarted?.Invoke();
     }
 }

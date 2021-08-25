@@ -8,14 +8,14 @@ public class InteractableMovement : MonoBehaviour
     [SerializeField] private GameObject[] _anchors;
     
     private int _index;
-    private bool _isAsc;
-    private Rigidbody _rb;
+    private bool _isAscending;
+    private Rigidbody _rigidbody;
     private Vector3 _direction;
     private float _distanceThreshold;
 
     private void Awake()
     {
-        _rb = GetComponent<Rigidbody>();
+        _rigidbody = GetComponent<Rigidbody>();
         
     }
     
@@ -38,13 +38,13 @@ public class InteractableMovement : MonoBehaviour
         {
             if(_index == 0)
             {
-                _isAsc = true;
+                _isAscending = true;
             }
             if(_index == _anchors.Length-1)
             {
-                _isAsc = false;
+                _isAscending = false;
             }
-            if (_isAsc)
+            if (_isAscending)
             {
                 _index++;
             }
@@ -58,6 +58,6 @@ public class InteractableMovement : MonoBehaviour
 
     private void MoveToAnchor()
     { 
-        _rb.MovePosition((_speed * Time.fixedDeltaTime * _direction) + transform.position);
+        _rigidbody.MovePosition((_speed * Time.fixedDeltaTime * _direction) + transform.position);
     }
 }

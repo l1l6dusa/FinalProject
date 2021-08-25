@@ -2,10 +2,17 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
+using UnityEngine.XR;
 
 [RequireComponent(typeof(UIPanel))]
 public class UIManager : MonoBehaviour
 {
+    //public UnityEvent GameStateChanged;
+    public UnityEvent GamePaused;
+    public UnityEvent GameUnpaused;
+    public UnityEvent RestartButtonClicked;
+    public UnityEvent ExitButtonClicked;
+
     [SerializeField] private Button _playButton;
     [SerializeField] private Button _exitButton;
     [SerializeField] private Button _restartButton;
@@ -16,15 +23,18 @@ public class UIManager : MonoBehaviour
     [SerializeField] private InteractableItem _winArea;
     [SerializeField] private ObserveRendererInSight _camera;
     
-    public UnityEvent GameStateChanged;
-    public UnityEvent RestartButtonClicked;
-    public UnityEvent ExitButtonClicked;
-
+    private bool _gameActive;
     private UIPanel _panel;
     private int _starValue;
     private int _maxStarValue;
     private bool _isInGameMenuOpened;
 
+    public bool GameActive
+    {
+        get { return _gameActive; }
+        set { _gameActive = value; }
+    }
+    
     private void Start()
     {
         _panel = GetComponent<UIPanel>();
@@ -45,8 +55,8 @@ public class UIManager : MonoBehaviour
         _settingsButton.onClick.AddListener(OnSettingsContinueButtonClicked);
         AddListenersToStars(IncrementSliderValue);
         AddListenersToEnemies(ActivateLoseMenu);
-        _winArea.CollisionWithPlayer.AddListener(ActivateWinMenu);
-        _camera.onBecameInvisible.AddListener(ActivateLoseMenu);
+        _winArea.CollidedWithPlayer.AddListener(ActivateWinMenu);
+        _camera.BecameInvisible.AddListener(ActivateLoseMenu);
     }
 
     private void OnDisable()
@@ -58,13 +68,14 @@ public class UIManager : MonoBehaviour
         _settingsButton.onClick.RemoveListener(OnSettingsContinueButtonClicked);
         RemoveListenersFromStars(IncrementSliderValue);
         RemoveListenersFromEnemies(ActivateLoseMenu);
-        _winArea.CollisionWithPlayer.RemoveListener(ActivateWinMenu);
-        _camera.onBecameInvisible.RemoveListener(ActivateLoseMenu);
+        _winArea.CollidedWithPlayer.RemoveListener(ActivateWinMenu);
+        _camera.BecameInvisible.RemoveListener(ActivateLoseMenu);
     }
     
     private void OnPlayButtonClicked()
     {
-        GameStateChanged?.Invoke();
+        SetGameState(_gameActive);
+        //GameStateChanged?.Invoke();
         _panel.SetPanelActive(PanelType.InGameUI);
     }
 
@@ -82,7 +93,9 @@ public class UIManager : MonoBehaviour
     {
         _isInGameMenuOpened = !_isInGameMenuOpened;
         _panel.SetPanelActive(_isInGameMenuOpened ? PanelType.PauseMenu : PanelType.InGameUI);
-        GameStateChanged?.Invoke();
+        //GameStateChanged?.Invoke();
+        SetGameState(_gameActive);
+        
     }
 
     public void IncrementSliderValue()
@@ -96,7 +109,7 @@ public class UIManager : MonoBehaviour
     {
         foreach (var star in _stars)
         {
-            star.CollisionWithPlayer.AddListener(action);
+            star.CollidedWithPlayer.AddListener(action);
         }
     }
     
@@ -104,21 +117,22 @@ public class UIManager : MonoBehaviour
     {
         foreach (var star in _stars)
         {
-            star.CollisionWithPlayer.RemoveListener(action);
+            star.CollidedWithPlayer.RemoveListener(action);
         }
     }
 
     private void ActivateLoseMenu()
     {
         _panel.SetPanelActive(PanelType.LoseMenu);
-        GameStateChanged?.Invoke();
+        //GameStateChanged?.Invoke();
+        SetGameState(_gameActive);
     }
     
     private void AddListenersToEnemies(UnityAction action)
     {
         foreach (var enemy in _enemies)
         {
-            enemy.CollisionWithPlayer.AddListener(action);
+            enemy.CollidedWithPlayer.AddListener(action);
         }
     }
     
@@ -126,13 +140,26 @@ public class UIManager : MonoBehaviour
     {
         foreach (var enemy in _enemies)
         {
-            enemy.CollisionWithPlayer.RemoveListener(action);
+            enemy.CollidedWithPlayer.RemoveListener(action);
         }
     }
 
     private void ActivateWinMenu()
     {
         _panel.SetPanelActive(PanelType.WinMenu);
-        GameStateChanged.Invoke();
+        //GameStateChanged.Invoke();
+        SetGameState(_gameActive);
+    }
+
+    private void SetGameState(bool state)
+    {
+        if (state == false)
+        {
+            GameUnpaused?.Invoke();
+        }
+        else
+        {
+            GamePaused?.Invoke();
+        }
     }
 }
