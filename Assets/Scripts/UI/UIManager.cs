@@ -7,7 +7,6 @@ using UnityEngine.XR;
 [RequireComponent(typeof(UIPanel))]
 public class UIManager : MonoBehaviour
 {
-    //public UnityEvent GameStateChanged;
     public UnityEvent GamePaused;
     public UnityEvent GameUnpaused;
     public UnityEvent RestartButtonClicked;
@@ -143,7 +142,6 @@ public class UIManager : MonoBehaviour
     private void ActivateWinMenu()
     {
         _panel.SetPanelActive(PanelType.WinMenu);
-        //GameStateChanged.Invoke();
         SetGameState(_gameActive);
     }
 
