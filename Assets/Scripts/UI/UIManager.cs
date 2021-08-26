@@ -75,7 +75,6 @@ public class UIManager : MonoBehaviour
     private void OnPlayButtonClicked()
     {
         SetGameState(_gameActive);
-        //GameStateChanged?.Invoke();
         _panel.SetPanelActive(PanelType.InGameUI);
     }
 
@@ -93,9 +92,7 @@ public class UIManager : MonoBehaviour
     {
         _isInGameMenuOpened = !_isInGameMenuOpened;
         _panel.SetPanelActive(_isInGameMenuOpened ? PanelType.PauseMenu : PanelType.InGameUI);
-        //GameStateChanged?.Invoke();
         SetGameState(_gameActive);
-        
     }
 
     public void IncrementSliderValue()
@@ -124,7 +121,6 @@ public class UIManager : MonoBehaviour
     private void ActivateLoseMenu()
     {
         _panel.SetPanelActive(PanelType.LoseMenu);
-        //GameStateChanged?.Invoke();
         SetGameState(_gameActive);
     }
     
@@ -161,5 +157,10 @@ public class UIManager : MonoBehaviour
         {
             GamePaused?.Invoke();
         }
+    }
+
+    public void SetUIState(bool active)
+    {
+        _gameActive = active;
     }
 }

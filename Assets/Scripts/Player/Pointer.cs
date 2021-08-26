@@ -4,7 +4,6 @@ using UnityEngine.EventSystems;
 
 public class Pointer : MonoBehaviour
 {
-    
     [SerializeField] private Material _arrowMaterial;
     [SerializeField] private float _fadeInOutTime;
     
@@ -17,7 +16,6 @@ public class Pointer : MonoBehaviour
     {
         _waitForNextFrame = new WaitForEndOfFrame();
         _arrowsMeshes = GetComponentsInChildren<MeshRenderer>();
-        //_wallsLayer = 1 << 6;
         _arrowColor = _arrowMaterial.color;
         _arrowMaterial.color = new Color(_arrowColor.r, _arrowColor.g, _arrowColor.b, 0);
         HidePointer();
@@ -26,11 +24,7 @@ public class Pointer : MonoBehaviour
     public void ShowPointer()
     {
         if (!EventSystem.current.IsPointerOverGameObject())
-        {    
-            /*foreach (var renderer in _arrowsMeshes)
-            {
-                renderer.enabled = !renderer.enabled;
-            }*/
+        {
             ActivateRenderer();
             if(_arrowVisibilityCoroutine != null)StopCoroutine(_arrowVisibilityCoroutine);
             _arrowVisibilityCoroutine = StartCoroutine(IncreaseAlphaCoroutine());
@@ -41,13 +35,7 @@ public class Pointer : MonoBehaviour
     {
         if (!EventSystem.current.IsPointerOverGameObject())
         {
-            /*foreach (var renderer in _arrowsMeshes)
-            {
-                renderer.enabled = !renderer.enabled;
-            }
-            */
             DisableRenderer();
-            
         }
     }
 
@@ -59,6 +47,7 @@ public class Pointer : MonoBehaviour
             renderer.enabled = false;
         }
     }
+    
     private void ActivateRenderer()
     {
         foreach (var renderer in _arrowsMeshes)
@@ -69,12 +58,11 @@ public class Pointer : MonoBehaviour
     
     private IEnumerator IncreaseAlphaCoroutine()
     {
-        
-            while (_arrowMaterial.color.a < 1f)
-            {
-                var alpha = _arrowMaterial.color.a + (Time.deltaTime / _fadeInOutTime); 
-                _arrowMaterial.color = new Color(_arrowColor.r, _arrowColor.g, _arrowColor.b, alpha);
-                yield return _waitForNextFrame;
-            }
+        while (_arrowMaterial.color.a < 1f) 
+        {
+            var alpha = _arrowMaterial.color.a + (Time.deltaTime / _fadeInOutTime); 
+            _arrowMaterial.color = new Color(_arrowColor.r, _arrowColor.g, _arrowColor.b, alpha);
+            yield return _waitForNextFrame;
+        }
     }
 }

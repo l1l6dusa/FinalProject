@@ -9855,7 +9855,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _arrowMaterial: {fileID: 2100000, guid: 18309fd11c933d04fb1a83e490dd1741, type: 2}
-  _fadeInOutTime: 0.5
+  _fadeInOutTime: 0.3
 --- !u!1 &1196297476
 GameObject:
   m_ObjectHideFlags: 0

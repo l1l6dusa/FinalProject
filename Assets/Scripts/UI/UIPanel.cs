@@ -107,6 +107,4 @@ public class UIPanel : MonoBehaviour
             yield return _waitForEndOfFrame;
         }
     }
-
-    
 }

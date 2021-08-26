@@ -86,7 +86,7 @@ public class PlayerNavigation : MonoBehaviour
         }
     }
 
-    public IEnumerator RotateRoutine(float bonds, Quaternion anchorRotation)
+    private IEnumerator RotateRoutine(float bonds, Quaternion anchorRotation)
     {
         var yrotation = anchorRotation.eulerAngles.y + 360;
         var minBond = yrotation - bonds;

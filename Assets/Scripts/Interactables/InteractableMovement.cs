@@ -16,7 +16,6 @@ public class InteractableMovement : MonoBehaviour
     private void Awake()
     {
         _rigidbody = GetComponent<Rigidbody>();
-        
     }
     
     private void Start()

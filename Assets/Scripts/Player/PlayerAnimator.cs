@@ -7,7 +7,7 @@ public class PlayerAnimator : MonoBehaviour {
     [SerializeField] private Rigidbody _rigidbody;
     [SerializeField] private Animator _animator;
     
-    void Update()
+    private void Update()
     {
         _animator.SetFloat(_dashAnimationName,Mathf.Clamp(_rigidbody.velocity.magnitude, 0, 1));
     }

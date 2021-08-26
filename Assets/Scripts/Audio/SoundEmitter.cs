@@ -14,6 +14,7 @@ public class SoundEmitter : MonoBehaviour {
     [SerializeField] private PlayerMovement _player;
     
     private AudioSource _audioSource;
+    
     private void Start()
     {
         _audioSource = GetComponent<AudioSource>();
@@ -27,14 +28,17 @@ public class SoundEmitter : MonoBehaviour {
     {
         _audioSource.PlayOneShot(_onMovementSoundClip, _audioSource.volume);
     }
+    
     private void PlayWinSound()
     {
         _audioSource.PlayOneShot(_onWinSoundClip, _audioSource.volume);
     }
+    
     private void PlayLoseSound()
     {
         _audioSource.PlayOneShot(_onLoseSoundClip, _audioSource.volume);
     }
+    
     private void PlayStartAcquisitionSound()
     {
         _audioSource.PlayOneShot(_onStarAcquisition, _audioSource.volume);

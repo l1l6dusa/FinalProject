@@ -20,7 +20,6 @@ public class GameState : MonoBehaviour
         SceneManager.sceneLoaded += OnSceneReload;
         _ui.ExitButtonClicked.AddListener(ExitGame);
         _ui.RestartButtonClicked.AddListener(ResetGame);
-        //_ui.GameStateChanged.AddListener(ChangeGameState);
         _ui.GamePaused.AddListener(PauseGame);
         _ui.GameUnpaused.AddListener(UnpauseGame);
     }
@@ -30,28 +29,19 @@ public class GameState : MonoBehaviour
         SceneManager.sceneLoaded -= OnSceneReload;
         _ui.ExitButtonClicked.RemoveListener(ExitGame);
         _ui.RestartButtonClicked.RemoveListener(ResetGame);
-        //_ui.GameStateChanged.RemoveListener(ChangeGameState);
         _ui.GamePaused.RemoveListener(PauseGame);
         _ui.GameUnpaused.RemoveListener(UnpauseGame);
     }
 
-    private void ChangeGameState()
-    {
-        _gameActive = !_gameActive;
-        Time.timeScale = _gameActive ? 1 : 0;
-    }
-
-
     private void PauseGame()
     {
-        
-         _ui.GameActive = false;
+        _ui.SetUIState(false);
         Time.timeScale = 0;
     }
 
     private void UnpauseGame()
     {
-        _ui.GameActive = true;
+        _ui.SetUIState(true);
         Time.timeScale = 1;
     }
     
