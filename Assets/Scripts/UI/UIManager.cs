@@ -28,12 +28,6 @@ public class UIManager : MonoBehaviour
     private int _maxStarValue;
     private bool _isInGameMenuOpened;
 
-    public bool GameActive
-    {
-        get { return _gameActive; }
-        set { _gameActive = value; }
-    }
-    
     private void Start()
     {
         _panel = GetComponent<UIPanel>();
